@@ -1,0 +1,181 @@
+/* ===========================
+   Hello World - style.css
+   =========================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a12;
+  font-family: 'Syne', sans-serif;
+  overflow: hidden;
+}
+
+/* ---- Background Canvas ---- */
+canvas#bgCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ---- Orbit Rings ---- */
+.ring {
+  position: fixed;
+  border-radius: 50%;
+  border: 1px solid;
+  animation: orbitPulse ease-in-out infinite;
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+/* ---- Main Wrapper ---- */
+.hw-wrap {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 3rem;
+}
+
+/* ---- Letters Row ---- */
+.letters-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.word {
+  display: flex;
+  gap: 6px;
+}
+
+.space {
+  width: 28px;
+}
+
+/* ---- Each Letter ---- */
+.letter {
+  font-size: clamp(48px, 10vw, 80px);
+  font-weight: 800;
+  color: #fff;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(60px) scale(0.6);
+  animation: letterIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  text-shadow:
+    0 0 30px rgba(120, 80, 255, 0.8),
+    0 0 60px rgba(80, 200, 255, 0.4);
+  cursor: default;
+  user-select: none;
+  transition: color 0.2s, text-shadow 0.2s, transform 0.2s;
+}
+
+.letter:hover {
+  color: #c084fc;
+  text-shadow:
+    0 0 20px #c084fc,
+    0 0 50px #7c3aed,
+    0 0 80px #2563eb;
+  transform: translateY(-12px) scale(1.25) !important;
+}
+
+/* ---- Subtitle ---- */
+.subtitle {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: rgba(180, 160, 255, 0.7);
+  text-transform: uppercase;
+  margin-top: 2rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 2s;
+}
+
+/* ---- Glow Bar ---- */
+.glow-bar {
+  width: 140px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #7c3aed, #2563eb, transparent);
+  margin-top: 1rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 2.2s;
+  border-radius: 2px;
+}
+
+/* ---- Hint Text ---- */
+.hint {
+  font-size: 11px;
+  color: rgba(180, 160, 255, 0.35);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 2.5rem;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 2.6s;
+}
+
+/* ---- Particles ---- */
+.particle {
+  position: fixed;
+  border-radius: 50%;
+  animation: floatParticle linear infinite;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+/* ===========================
+   Keyframe Animations
+   =========================== */
+
+@keyframes letterIn {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatParticle {
+  0%   { transform: translateY(0) translateX(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.8; }
+  100% { transform: translateY(-100vh) translateX(var(--dx)); opacity: 0; }
+}
+
+@keyframes orbitPulse {
+  0%, 100% {
+    opacity: 0.15;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
